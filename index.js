@@ -65,6 +65,8 @@ const buttonTexts = [
 	"I'll take the risk",
 	"*ignores*",
 	"No thanks!",
+	"Go anyway",
+	"I have enough time"
 ];
 const randButtonText =
 	buttonTexts[Math.floor(Math.random() * buttonTexts.length)];
