@@ -1,10 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
 
+* {
+	overflow: hidden;
+}
 html,
 body,
 .wrapper {
 	height: 100%;
 	width: 100%;
+	max-height: 100%;
+	max-width: 100%;
 }
 .wrapper {
 	display: flex;
@@ -20,8 +25,14 @@ body,
 #button {
 	font-family: Montserrat;
 	margin: 0;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+#title {
+	font-size: 3em;
+}
+#time, #button {
+	font-size: 24px;
 }
 #button,
 #button a {
