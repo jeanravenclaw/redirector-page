@@ -6,6 +6,7 @@ let redirect = urlParams.get("redirect");
 if (redirect == null) {
 	redirect = "http://example.com";
 }
+redirect = `${redirect}#safetogo`
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
