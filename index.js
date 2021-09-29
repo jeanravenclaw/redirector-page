@@ -1,3 +1,4 @@
+// display stuff
 const queryString = window.location.search;
 console.log(queryString); // ?params=___ etc
 const urlParams = new URLSearchParams(queryString);
@@ -6,7 +7,7 @@ let redirect = urlParams.get("redirect");
 if (redirect == null) {
 	redirect = "http://example.com";
 }
-redirect = `${redirect}#safetogo`
+let redirectSafe = `${redirect}#safetogo`;
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -24,7 +25,11 @@ if (randomMins == 0) {
 	randomMins = ` and ${randomMins} minutes`;
 }
 if (randomHours == 0) {
-	timeMsg = `${randomMins}`.replace(" and ", "");
+	if (randomMins == "") {
+		timeMsg = `1 hour`;
+	} else {
+		timeMsg = `${randomMins}`.replace(" and ", "");
+	}
 } else if (randomHours == 1) {
 	timeMsg = `${randomHours} hour${randomMins}`;
 } else {
@@ -38,7 +43,7 @@ const titleTexts = [
 	"Wait up",
 	"Hold up",
 	"Hey!",
-	"What are you doing?"
+	"What are you doing?",
 ];
 const randTitleText = titleTexts[Math.floor(Math.random() * titleTexts.length)];
 const timeTexts = [
@@ -67,7 +72,7 @@ const buttonTexts = [
 	"*ignores*",
 	"No thanks!",
 	"Go anyway",
-	"I have enough time"
+	"I have enough time",
 ];
 const randButtonText =
 	buttonTexts[Math.floor(Math.random() * buttonTexts.length)];
@@ -76,4 +81,26 @@ titleElement.innerText = randTitleText;
 let timeElement = document.getElementById("time");
 timeElement.innerHTML = randTimeText;
 let buttonElement = document.getElementById("button");
-buttonElement.innerHTML = `<a href="${redirect}">${randButtonText}</a>`;
+buttonElement.innerHTML = randButtonText;
+
+// button
+buttonElement.addEventListener("click", function (event) {
+	function randomStr(length) {
+		var result = "";
+		var characters =
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		var charactersLength = characters.length;
+		for (var i = 0; i < length; i++) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+		return result;
+	}
+	let confirmtext = randomStr(5);
+	let answer = prompt(`Are you sure you're going to ${redirect}?\n👀 Enter the text shown: ${confirmtext}`, "");
+
+	if (answer == null || answer != confirmtext) {
+		window.alert("Wrong text entered.");
+	} else {
+		window.location.replace(redirectSafe);
+	}
+});
