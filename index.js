@@ -98,9 +98,7 @@ buttonElement.addEventListener("click", function (event) {
 	let confirmtext = randomStr(5);
 	let answer = prompt(`Are you sure you're going to ${redirect}?\n👀 Enter the text shown: ${confirmtext}`, "");
 
-	if (answer == null || answer != confirmtext) {
-		window.alert("Wrong text entered.");
-	} else {
+	if (answer != null || answer == confirmtext) {
 		window.location.replace(redirectSafe);
 	}
 });
