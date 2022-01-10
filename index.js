@@ -11,7 +11,7 @@ if (redirect == null) {
 let redirectSafe = `${redirect}`;
 // get domain
 let domain = urlParams.get("domain");
-if (domain == nurl) {
+if (domain == null) {
 	domain = redirect
 }
 
