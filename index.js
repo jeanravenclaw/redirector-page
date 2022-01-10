@@ -15,6 +15,11 @@ if (domain == null) {
 	domain = redirect
 }
 
+// sleep
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // cookies
 function setCookie(cname, cvalue, exmins) {
 	const d = new Date();
@@ -146,6 +151,9 @@ buttonElement.addEventListener("click", function (event) {
 		} else {
 			setCookie(domain, "true", 30);
 		}
+		alert("Loading, please wait...")
+		sleep(75)
+
 		window.location.replace(redirectSafe);
 	}
 });
