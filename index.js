@@ -9,6 +9,11 @@ if (redirect == null) {
 	redirect = "http://example.com";
 }
 let redirectSafe = `${redirect}`;
+// get domain
+let domain = urlParams.get("domain");
+if (domain == nurl) {
+	domain = redirect
+}
 
 // cookies
 function setCookie(cname, cvalue, exmins) {
@@ -34,7 +39,7 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-	let timer = getCookie(redirect);
+	let timer = getCookie(domain);
 	if (timer != "") {
 		// cookie is set; you can proceed
 		window.location.replace(redirectSafe);
@@ -130,16 +135,16 @@ buttonElement.addEventListener("click", function (event) {
 	}
 	let confirmtext = randomStr(5);
 	let answer = prompt(
-		`Are you sure you're going to ${redirect}?\n👀 Enter the text shown: ${confirmtext}`,
+		`Are you sure you're going to ${domain}?\n👀 Enter the text shown: ${confirmtext}`,
 		""
 	);
 
 	if (answer != null || answer == confirmtext) {
 		timer = prompt("Unblock for how many minutes?", 30);
 		if (timer != "" && timer != null) {
-			setCookie(redirect, "true", timer.toString());
+			setCookie(domain, "true", timer.toString());
 		} else {
-			setCookie(redirect, "true", 30);
+			setCookie(domain, "true", 30);
 		}
 		window.location.replace(redirectSafe);
 	}
