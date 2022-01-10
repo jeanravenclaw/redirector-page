@@ -45,11 +45,16 @@ function getCookie(cname) {
 
 function checkCookie() {
 	let timer = getCookie(domain);
+	let timeout = getCookie(`${domain}-timeout`);
 	if (timer != "") {
 		// cookie is set; you can proceed
 		window.location.replace(redirectSafe);
 	} else {
 		// cookie is not set
+		if (timeout != "") {
+			// there's a timeout
+			window.location.replace("/timeout.html")
+		}
 	}
 }
 
@@ -146,11 +151,12 @@ buttonElement.addEventListener("click", function (event) {
 
 	if (answer != null || answer == confirmtext) {
 		timer = prompt("Unblock for how many minutes?", 30);
-		if (timer != "" && timer != null) {
-			setCookie(domain, "true", timer.toString());
+		if (timer != "" && timer != null && parseInt(timer) != NaN) {
+			setCookie(domain, "true", parseInt(timer));
 		} else {
 			setCookie(domain, "true", 30);
 		}
+		setCookie(`${domain}-timeout`, "true", parseInt(timer) + 10);
 		alert("Loading, please wait...")
 		sleep(75)
 
