@@ -15,5 +15,12 @@
 			<p id="time">You can't go to the site because you've visited it in the last 10 minutes.</p>
 			<p id="button"><a href="javascript:close_window();">Close</a></p>
 		</div>
+		<script>
+		function close_window() {
+			if (confirm("Close Window?")) {
+				close();
+			}
+		}	
+		</script>
 	</body>
 </html>
