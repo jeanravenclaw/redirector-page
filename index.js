@@ -53,7 +53,7 @@ function checkCookie() {
 		// cookie is not set
 		if (timeout != "") {
 			// there's a timeout
-			window.location.replace(`/timeout.html?redirect=${redirect}&domain=${domain}`)
+			window.location.replace(`/timeout.html`)
 		}
 	}
 }

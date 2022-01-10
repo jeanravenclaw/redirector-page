@@ -13,28 +13,7 @@
 		<div class="wrapper">
 			<h1 id="title">On Timeout</h1>
 			<p id="time">You can't go to the site because you've visited it in the last 10 minutes.</p>
-			<p id="button"><a href="/">Try again</a></p>
+			<p id="button"><a href="javascript:close_window();">Close</a></p>
 		</div>
-		<script>
-			// display stuff
-			const queryString = window.location.search;
-			console.log(queryString); // ?params=___ etc
-			const urlParams = new URLSearchParams(queryString);
-			// get redirect
-			let redirect = urlParams.get("redirect");
-			if (redirect == null) {
-				redirect = "http://example.com";
-			}
-			let redirectSafe = `${redirect}`;
-			// get domain
-			let domain = urlParams.get("domain");
-			if (domain == null) {
-				domain = redirect
-			}
-
-			buttonElement.addEventListener("click", function (event) {
-				window.location.replace(`/index.html?redirect=${redirect}&domain=${domain}`)
-			}
-		</script>
 	</body>
 </html>
