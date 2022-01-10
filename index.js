@@ -1,3 +1,4 @@
+
 // display stuff
 const queryString = window.location.search;
 console.log(queryString); // ?params=___ etc
@@ -7,7 +8,40 @@ let redirect = urlParams.get("redirect");
 if (redirect == null) {
 	redirect = "http://example.com";
 }
-let redirectSafe = `${redirect}#safetogo`;
+let redirectSafe = `${redirect}`;
+
+// cookies
+function setCookie(cname, cvalue, exmins) {
+	const d = new Date();
+	d.setTime(d.getTime() + exmins * 60 * 1000);
+	let expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+	let name = cname + "=";
+	let ca = document.cookie.split(";");
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == " ") {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
+function checkCookie() {
+	let timer = getCookie(redirect);
+	if (timer != "") {
+		// cookie is set; you can proceed
+		window.location.replace(redirectSafe);
+	} else {
+		// cookie is not set
+	}
+}
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -87,8 +121,7 @@ buttonElement.innerHTML = randButtonText;
 buttonElement.addEventListener("click", function (event) {
 	function randomStr(length) {
 		var result = "";
-		var characters =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		var charactersLength = characters.length;
 		for (var i = 0; i < length; i++) {
 			result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -96,9 +129,18 @@ buttonElement.addEventListener("click", function (event) {
 		return result;
 	}
 	let confirmtext = randomStr(5);
-	let answer = prompt(`Are you sure you're going to ${redirect}?\n👀 Enter the text shown: ${confirmtext}`, "");
+	let answer = prompt(
+		`Are you sure you're going to ${redirect}?\n👀 Enter the text shown: ${confirmtext}`,
+		""
+	);
 
 	if (answer != null || answer == confirmtext) {
+		timer = prompt("Unblock for how many minutes?", 30);
+		if (timer != "" && timer != null) {
+			setCookie(redirect, "true", timer.toString());
+		} else {
+			setCookie(redirect, "true", 30);
+		}
 		window.location.replace(redirectSafe);
 	}
 });
